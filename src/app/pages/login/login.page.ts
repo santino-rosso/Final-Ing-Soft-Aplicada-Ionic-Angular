@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -12,7 +11,7 @@ import { catchError, of, tap } from 'rxjs';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonicModule]
 })
 export class LoginPage implements OnInit {
   username: string = '';
@@ -21,7 +20,9 @@ export class LoginPage implements OnInit {
   showError: boolean = false;
   errorMessage: string = '';
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {
+    console.log("Página de login cargada");
+  }
 
   ngOnInit() {
   }
