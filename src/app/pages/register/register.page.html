@@ -1,13 +1,46 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
+    <ion-title style="text-align: center;">Bienvenido a SpaceApp</ion-title>  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="center-content">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Registrarse</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input [(ngModel)]="login" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Mail</ion-label>
+        <ion-input [(ngModel)]="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" (click)="register()">Registrar</ion-button>
+      <ion-button expand="full" color="light" (click)="navigateToLogin()">Ingresar</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-toast
+    [isOpen]="showError"
+    [message]="errorMessage"
+    duration="3000"
+    color="danger">
+  </ion-toast>
+  <ion-toast
+    [isOpen]="showAccepted"
+    [message]="acceptedMessage"
+    duration="3000"
+    color="success">
+  </ion-toast>
 </ion-content>
+

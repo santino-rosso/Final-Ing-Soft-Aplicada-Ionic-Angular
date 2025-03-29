@@ -21,13 +21,14 @@ export class LoginPage implements OnInit {
   errorMessage: string = '';
 
   constructor(private userService: UserService, private router: Router) {
-    console.log("Página de login cargada");
   }
 
   ngOnInit() {
   }
 
   login() {
+    this.showError = false;
+    
     this.userService.login(this.username, this.password, this.rememberMe).pipe(
       tap(response => {
         if (response.id_token) {
@@ -37,6 +38,8 @@ export class LoginPage implements OnInit {
         }
       }),
       catchError(error => {
+        this.username = '';
+        this.password = '';
         console.error('Error en la autenticación', error);
         this.errorMessage = "Credenciales incorectas";
         this.showError = true;
