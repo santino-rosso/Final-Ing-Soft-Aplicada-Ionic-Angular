@@ -1,0 +1,7 @@
+{
+  "name": "spaceApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
