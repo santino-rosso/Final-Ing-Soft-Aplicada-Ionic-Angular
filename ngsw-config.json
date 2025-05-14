@@ -26,5 +26,18 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "ApiRequests",
+      "urls": ["http://localhost:8080/api/space-events"],
+      "version": 1,
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 5,
+        "maxAge": "1d",
+        "timeout": "10s"
+      }
+    }
   ]
 }
