@@ -56,6 +56,9 @@
         <ion-select-option *ngFor="let mission of missionsAvailable" [value]="mission.id">
           {{ mission.name }}
         </ion-select-option>
+        <ion-select-option value="__new__">
+          + Crear nueva misión
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-button expand="block" type="submit" [disabled]="eventForm.invalid">

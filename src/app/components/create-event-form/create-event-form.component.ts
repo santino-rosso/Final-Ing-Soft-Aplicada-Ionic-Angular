@@ -108,6 +108,18 @@ export class CreateEventFormComponent implements OnInit {
         next: (mission) => {
           this.createdMission = mission;
           this.step = 'event';
+          // Recargar misiones disponibles y seleccionar la nueva
+          this.missionsService.getMissions('spaceevent-is-null').subscribe(missions => {
+            // Agregar la nueva misión
+            if (!missions.some(m => m.id === mission.id)) {
+              missions.push(mission);
+            }
+            this.missionsAvailable = missions;
+            // Seleccionar la nueva misión en el select
+            setTimeout(() => {
+              this.createdMission = mission;
+            });
+          });
         },
         error: () => alert('Error al crear la misión')
       });
@@ -164,9 +176,15 @@ export class CreateEventFormComponent implements OnInit {
 
   onMissionChange(event: any) {
     const missionId = event.detail.value;
-    const selected = this.missionsAvailable.find(m => m.id === missionId);
-    if (selected) {
-      this.createdMission = selected;
+    if (missionId === '__new__') {
+      this.step = 'mission';
+      this.missionForm.reset();
+      this.createdMission = null;
+    } else {
+      const selected = this.missionsAvailable.find(m => m.id === missionId);
+      if (selected) {
+        this.createdMission = selected;
+      }
     }
   }
 }
