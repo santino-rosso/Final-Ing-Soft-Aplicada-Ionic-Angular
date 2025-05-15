@@ -18,5 +18,13 @@ export class MissionsService {
   createMission(mission: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/missions`, mission, { headers: this.headers_http });
   }
+
+  deleteMission(missionId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/missions/${missionId}`, { headers: this.headers_http });
+  }
+
+  updateMission(missionId: number, mission: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/missions/${missionId}`, mission, { headers: this.headers_http });
+  }
 }
 

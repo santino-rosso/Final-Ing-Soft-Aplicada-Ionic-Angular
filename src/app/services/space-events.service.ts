@@ -22,4 +22,12 @@ export class SpaceEventsService {
   createEvent(event: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/space-events`, event, { headers: this.headers_http });
   }
+
+  deleteEvent(eventId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/space-events/${eventId}`, { headers: this.headers_http });
+  }
+
+  updateEvent(eventId: number, event: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/space-events/${eventId}`, event, { headers: this.headers_http });
+  }
 }

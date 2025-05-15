@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear {{ step === 'mission' ? 'Misión' : 'Evento Espacial' }}</ion-title>
+    <ion-title>
+      {{ step === 'mission' ? (mode === 'edit-mission' ? 'Editar Misión' : 'Crear Misión') : (mode === 'edit' ? 'Editar Evento' : 'Crear Evento Espacial') }}
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="close()">Cerrar</ion-button>
     </ion-buttons>
@@ -18,7 +20,9 @@
       <ion-label position="floating">Descripción</ion-label>
       <ion-input formControlName="description"></ion-input>
     </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="missionForm.invalid">Crear misión</ion-button>
+    <ion-button expand="block" type="submit" [disabled]="missionForm.invalid">
+      {{ mode === 'edit-mission' ? 'Guardar cambios' : 'Crear misión' }}
+    </ion-button>
   </form>
 
   <!-- Formulario de evento -->
@@ -46,6 +50,8 @@
       <ion-label>Foto</ion-label>
       <input type="file" (change)="onFileChange($event)" accept="image/*" />
     </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="eventForm.invalid">Crear evento</ion-button>
+    <ion-button expand="block" type="submit" [disabled]="eventForm.invalid">
+      {{ mode === 'edit' ? 'Guardar cambios' : 'Crear evento' }}
+    </ion-button>
   </form>
 </ion-content>

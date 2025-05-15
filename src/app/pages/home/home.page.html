@@ -24,7 +24,27 @@
             class="event-image">
           </ion-img>
         </ion-col>
-        <ion-col size="8">
+        <ion-col size="8" style="position: relative;">
+          <!-- Botón Eliminar -->
+          <ion-button 
+            color="danger" 
+            fill="solid" 
+            size="small" 
+            (click)="deleteEvent(event)"
+            style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10;">
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Eliminar
+          </ion-button>
+          <!-- Botón Editar -->
+           <ion-button 
+              color="primary" 
+              fill="solid" 
+              size="small" 
+              (click)="openEditOptions(event)"
+              style="position: absolute; top: 0.5rem; right: 7.5rem; z-index: 10;">
+              <ion-icon name="create-outline" slot="start"></ion-icon>
+              Editar
+            </ion-button>
           <ion-card-header>
             <ion-card-title class="event-title">{{ event.name }}</ion-card-title>
             <ion-card-subtitle class="event-date">{{ event.date | date: 'longDate' }}</ion-card-subtitle>
