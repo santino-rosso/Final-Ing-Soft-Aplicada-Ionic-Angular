@@ -28,6 +28,7 @@ export class CreateEventFormComponent implements OnInit {
   missionForm: FormGroup;
   eventForm: FormGroup;
   createdMission: any = null;
+  missionsAvailable: any[] = [];
 
   constructor(
     private modalCtrl: ModalController,
@@ -63,6 +64,18 @@ export class CreateEventFormComponent implements OnInit {
         type: this.event.type,
       });
       this.createdMission = this.event.mission;
+
+      // 1. Cargar misiones no asociadas a eventos
+      this.missionsService.getMissions('spaceevent-is-null').subscribe(missions => {
+        // 2. Agregar la misión actualmente asociada 
+        if (
+          this.event.mission &&
+          !missions.some(m => m.id === this.event.mission.id)
+        ) {
+          missions.push(this.event.mission);
+        }
+        this.missionsAvailable = missions;
+      });
     }
     // Si es edición de misión
     if (this.mode === 'edit-mission' && this.mission) {
@@ -134,20 +147,28 @@ export class CreateEventFormComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-onFileChange(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(',')[1];
-      this.eventForm.patchValue({
-        photo: base64,
-        photoContentType: file.type
-      });
-    };
-    reader.readAsDataURL(file);
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(',')[1];
+        this.eventForm.patchValue({
+          photo: base64,
+          photoContentType: file.type
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   }
-}
+
+  onMissionChange(event: any) {
+    const missionId = event.detail.value;
+    const selected = this.missionsAvailable.find(m => m.id === missionId);
+    if (selected) {
+      this.createdMission = selected;
+    }
+  }
 }
 
 

@@ -26,5 +26,13 @@ export class MissionsService {
   updateMission(missionId: number, mission: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/missions/${missionId}`, mission, { headers: this.headers_http });
   }
+
+  getMissions(filter?: string): Observable<any[]> {
+    let url = `${this.apiUrl}/missions`;
+    if (filter) {
+      url += `?filter=${filter}`;
+    }
+    return this.http.get<any[]>(url, { headers: this.headers_http });
+  }
 }
 

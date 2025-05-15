@@ -50,6 +50,14 @@
       <ion-label>Foto</ion-label>
       <input type="file" (change)="onFileChange($event)" accept="image/*" />
     </ion-item>
+    <ion-item *ngIf="mode === 'edit'">
+      <ion-label position="floating">Misión asociada</ion-label>
+      <ion-select [value]="createdMission?.id" (ionChange)="onMissionChange($event)">
+        <ion-select-option *ngFor="let mission of missionsAvailable" [value]="mission.id">
+          {{ mission.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-button expand="block" type="submit" [disabled]="eventForm.invalid">
       {{ mode === 'edit' ? 'Guardar cambios' : 'Crear evento' }}
     </ion-button>
