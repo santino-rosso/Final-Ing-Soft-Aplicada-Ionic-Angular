@@ -126,4 +126,10 @@ export class HomePage implements OnInit {
     });
     await actionSheet.present();
   }
+
+  logout() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('spaceEvents');
+    window.location.href = '/login';
+  }
 }

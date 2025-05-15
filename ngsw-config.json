@@ -30,7 +30,10 @@
   "dataGroups": [
     {
       "name": "ApiRequests",
-      "urls": ["http://localhost:8080/api/space-events"],
+      "urls": [
+        "http://localhost:8080/api/space-events/*",
+        "http://localhost:8080/api/missions/*"
+      ],
       "version": 1,
       "cacheConfig": {
         "strategy": "freshness",
