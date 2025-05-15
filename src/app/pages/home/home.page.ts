@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SpaceEventsService } from 'src/app/services/space-events.service';
 import { catchError, of, tap } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { CreateEventFormComponent } from 'src/app/components/create-event-form/create-event-form.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,10 @@ import { catchError, of, tap } from 'rxjs';
 export class HomePage implements OnInit {
   events: any[] = [];
 
-  constructor(private spaceEventsService: SpaceEventsService) {}
+  constructor(
+    private spaceEventsService: SpaceEventsService,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.loadEvents();
@@ -33,4 +38,16 @@ export class HomePage implements OnInit {
         })
     ).subscribe();
   } 
+
+  async openCreateEventModal() {
+    const modal = await this.modalController.create({
+      component: CreateEventFormComponent,
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    if (role === 'created' && data) {
+      this.loadEvents(); 
+    }
+  }
 }

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear {{ step === 'mission' ? 'Misión' : 'Evento Espacial' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario de misión -->
+  <form *ngIf="step === 'mission'" [formGroup]="missionForm" (ngSubmit)="createMission()">
+    <ion-item>
+      <ion-label position="floating">Nombre de la misión</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="missionForm.invalid">Crear misión</ion-button>
+  </form>
+
+  <!-- Formulario de evento -->
+  <form *ngIf="step === 'event'" [formGroup]="eventForm" (ngSubmit)="createEvent()">
+    <ion-item>
+      <ion-label position="floating">Nombre del evento</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fecha</ion-label>
+      <ion-datetime formControlName="date" presentation="date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tipo</ion-label>
+      <ion-select formControlName="type">
+        <ion-select-option value="LAUNCH">Lanzamiento</ion-select-option>
+        <ion-select-option value="LANDING">Aterrizaje</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Foto</ion-label>
+      <input type="file" (change)="onFileChange($event)" accept="image/*" />
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="eventForm.invalid">Crear evento</ion-button>
+  </form>
+</ion-content>

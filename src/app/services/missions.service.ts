@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SpaceEventsService {
+export class MissionsService {
   private apiUrl = environment.url;
 
   private headers_http = new HttpHeaders({
@@ -15,11 +15,8 @@ export class SpaceEventsService {
 
   constructor(private http: HttpClient) {}
 
-  getSpaceEvents(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/space-events`, { headers: this.headers_http });
-  }
-
-  createEvent(event: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/space-events`, event, { headers: this.headers_http });
+  createMission(mission: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/missions`, mission, { headers: this.headers_http });
   }
 }
+
