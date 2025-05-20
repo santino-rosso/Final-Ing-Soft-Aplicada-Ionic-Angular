@@ -8,7 +8,6 @@
       "resources": {
         "files": [
           "/favicon.ico",
-          "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
@@ -31,8 +30,8 @@
     {
       "name": "ApiRequests",
       "urls": [
-        "http://localhost:8080/api/space-events/*",
-        "http://localhost:8080/api/missions/*"
+        "http://localhost:8080/api/space-events/**",
+        "http://localhost:8080/api/missions/**"
       ],
       "version": 1,
       "cacheConfig": {
@@ -40,6 +39,20 @@
         "maxSize": 5,
         "maxAge": "1d",
         "timeout": "10s"
+      }
+    },
+    {
+      "name": "ApiAuthentication",
+      "urls": [
+       "http://localhost:8080/api/authenticate",
+        "http://localhost:8080/api/register"
+      ],
+      "version": 1,
+      "cacheConfig": {
+        "strategy": "freshness", 
+        "maxAge": "0u", 
+        "maxSize": 0,
+        "timeout": "1s"
       }
     }
   ]
