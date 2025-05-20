@@ -19,6 +19,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Indicador de estado de la red -->
+  <ion-chip [color]="isOnline ? 'success' : 'warning'" style="margin: 10px;">
+    <ion-icon [name]="isOnline ? 'wifi' : 'wifi-outline'"></ion-icon>
+    <ion-label>{{ isOnline ? 'Online' : 'Offline' }}</ion-label>
+  </ion-chip>
+
+  <!-- Botón de sincronización -->
+  <ion-button [disabled]="!isOnline || isSyncing" (click)="syncData()" expand="block" size="small" style="margin: 0px 10px 10px 10px;">
+    <ion-icon slot="start" name="sync-outline"></ion-icon>
+    <ion-spinner *ngIf="isSyncing" name="crescent" size="small"></ion-spinner>
+    <span *ngIf="!isSyncing">Sincronizar datos</span>
+    <span *ngIf="isSyncing">Sincronizando...</span>
+  </ion-button>
+
   <div *ngFor="let event of events" class="event-card">
     <ion-card>
       <ion-row>
@@ -31,6 +45,14 @@
           </ion-img>
         </ion-col>
         <ion-col size="8" style="position: relative;">
+          <!-- Indicador de desconexión de eventos temporales -->
+          <ion-chip *ngIf="event.id && event.id.toString().startsWith('temp_')" 
+                   color="warning" size="small" 
+                   style="position: absolute; top: 0.5rem; left: 0.5rem; z-index: 10;">
+            <ion-icon name="cloud-offline-outline"></ion-icon>
+            <ion-label>Pendiente</ion-label>
+          </ion-chip>
+          
           <!-- Botón Eliminar -->
           <ion-button 
             color="danger" 
@@ -62,10 +84,22 @@
               <ion-card-subtitle class="mission-title">Misión</ion-card-subtitle>
               <p class="mission-name"><strong>Nombre:</strong> {{ event.mission.name }}</p>
               <p class="mission-description"><strong>Descripción:</strong> {{ event.mission.description }}</p>
+              <!-- Indicador de desconexión para misiones temporales -->
+              <ion-chip *ngIf="event.mission.id && event.mission.id.toString().startsWith('temp_')" 
+                       color="warning" size="small">
+                <ion-icon name="cloud-offline-outline"></ion-icon>
+                <ion-label>Pendiente</ion-label>
+              </ion-chip>
             </div>
           </ion-card-content>
         </ion-col>
       </ion-row>
     </ion-card>
+  </div>
+
+  <!-- Mensaje de no eventos -->
+  <div *ngIf="events.length === 0" style="text-align: center; margin-top: 20px;">
+    <ion-icon name="calendar-outline" style="font-size: 48px; color: #999;"></ion-icon>
+    <p>No hay eventos disponibles</p>
   </div>
 </ion-content>
